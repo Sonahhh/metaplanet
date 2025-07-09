@@ -1,0 +1,43 @@
+name: Run Jupyter Notebook Daily
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # Runs every day at 9:00 PST
+  workflow_dispatch:     # Allows manual trigger from GitHub UI
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install papermill pandas kaggle xlrd matplotlib # Add any other dependencies you need
+
+      - name: Create .kaggle directory
+        run: mkdir -p ~/.kaggle
+
+      - name: Write kaggle.json
+        run: |
+          echo "{\"username\":\"${KAGGLE_USERNAME}\",\"key\":\"${KAGGLE_KEY}\"}" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+
+      - name: Run daily JPX scraper script
+        run: |
+          papermill metaplanet/shorts/daily_jpx_crawler.ipynb metaplanet/shorts/output_daily_jpx_crawler.ipynb
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-notebook
+          path: metaplanet/shorts/output_daily_jpx_crawler.ipynb
