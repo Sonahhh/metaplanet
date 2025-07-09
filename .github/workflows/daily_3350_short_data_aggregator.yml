@@ -2,7 +2,7 @@ name: Run Jupyter Notebook Daily
 
 on:
   schedule:
-    - cron: '0 10 * * *' # Runs every day at 2:00 AM PST
+    - cron: '20 10 * * *' # Runs every day at 2:20 AM PST
   workflow_dispatch:     # Allows manual trigger from GitHub UI
 
 jobs:
