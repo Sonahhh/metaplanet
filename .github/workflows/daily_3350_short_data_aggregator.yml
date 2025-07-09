@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install papermill pandas kaggle xlrd matplotlib # Add any other dependencies you need
+          pip install papermill pandas kaggle beautifulsoup4 xlrd matplotlib ipykernel
 
       - name: Create .kaggle directory
         run: mkdir -p ~/.kaggle
@@ -32,7 +32,7 @@ jobs:
           KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
           KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
 
-      - name: Run daily JPX scraper script
+      - name: Run daily JPX scraper pyscript
         run: |
           papermill shorts/daily_jpx_crawler.ipynb shorts/output_daily_jpx_crawler.ipynb
 
