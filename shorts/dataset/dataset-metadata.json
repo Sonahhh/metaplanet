@@ -1,0 +1,11 @@
+{
+  "title": "Metaplanet Inc. Short Positions",
+  "id": "lilfatdog/metaplanet-daily-short-positions",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "subtitle": "Daily short position disclosures for Metaplanet as of June 2024 to today",
+  "description": "This dataset contains 3350's daily short positions as reported by JPX. Data is scraped from: https://www.jpx.co.jp/english/markets/public/short-selling/index.html"
+}
