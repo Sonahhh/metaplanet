@@ -2,7 +2,7 @@ name: Metaplanet Daily Price/Volume Agg
 
 on:
   schedule:
-    - cron: '30 20 * * 1-5'  # Runs every mon-fri at 1:30 PM PDT
+    - cron: '0 23 * * 1-5'  # Runs every mon-fri at 4:00 PM PDT
   workflow_dispatch:     # Allows manual trigger from GitHub UI
 
 jobs:
