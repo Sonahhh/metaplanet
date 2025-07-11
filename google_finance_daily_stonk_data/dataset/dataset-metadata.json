@@ -1,0 +1,11 @@
+{
+  "title": "Metaplanet Inc. Daily Price/Volume",
+  "id": "lilfatdog/metaplanet-daily-price-and-volume",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "subtitle": "Daily Price/Volume for all Metaplanet tickers (3350, DN3, MTPLF)",
+  "description": "This dataset contains all 3 tickers related to MP's daily closing price + volume. Data is pulled from Google Finance API."
+}

@@ -1,0 +1,42 @@
+name: Run Jupyter Notebook Daily
+
+on:
+  schedule:
+    - cron: '30 20 * * 1-5'  # Runs every mon-fri at 1:30 PM PDT
+  workflow_dispatch:     # Allows manual trigger from GitHub UI
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install papermill pandas kaggle beautifulsoup4 xlrd matplotlib ipykernel
+
+      - name: Create .kaggle directory
+        run: mkdir -p ~/.kaggle
+
+      - name: Write kaggle.json
+        run: |
+          echo "{\"username\":\"${KAGGLE_USERNAME}\",\"key\":\"${KAGGLE_KEY}\"}" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+    
+      - name: Set GOOGLE_SEARCH_API_KEY env variable
+        run: echo "GOOGLE_SEARCH_API_KEY=${GOOGLE_SEARCH_API_KEY}" >> $GITHUB_ENV
+        env:
+          GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
+
+      - name: Run daily JPX scraper pyscript
+        run: |
+          papermill google_finance_daily_stonk_data/google_finance_api.ipynb google_finance_daily_stonk_data/output_google_finance_api.ipynb
