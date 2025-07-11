@@ -1,4 +1,4 @@
-name: Run Jupyter Notebook Daily
+name: Metaplanet Daily Short Position Agg
 
 on:
   schedule:

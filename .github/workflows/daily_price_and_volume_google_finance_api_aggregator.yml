@@ -1,4 +1,4 @@
-name: Run Jupyter Notebook Daily
+name: Metaplanet Daily Price/Volume Agg
 
 on:
   schedule:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install papermill pandas kaggle beautifulsoup4 xlrd matplotlib ipykernel
+          pip install papermill pandas kaggle beautifulsoup4 xlrd matplotlib ipykernel google-search-results
 
       - name: Create .kaggle directory
         run: mkdir -p ~/.kaggle
